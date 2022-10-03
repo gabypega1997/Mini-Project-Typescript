@@ -1,1 +1,6 @@
-const btn: HTMLElement | null = document.getElementById("btn");
+const btn = document.getElementById("btn")!;
+const todoinput = document.getElementById("todoinput")!;
+
+btn.addEventListener("click", () => {
+    console.log(btn);
+});
