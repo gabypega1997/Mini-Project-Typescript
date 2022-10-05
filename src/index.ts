@@ -31,9 +31,22 @@ function handleSubmit(e: SubmitEvent) {
     todos.push(newTodo);
     saveTodos();
     input.value = "";
+    location.reload();
 }
 
-function deleteTodo(todo: Todo) {}
+function deleteBtnFc(deleteBtn: HTMLButtonElement): void {
+    deleteBtn.addEventListener("click", function (e) {
+        const idElement = Number(this.parentElement!.id);
+        const todosFiltred = todos.filter(function (todo, index) {
+            if (index !== idElement) {
+                return todo;
+            }
+        });
+        todos = todosFiltred;
+        saveTodos();
+        location.reload();
+    });
+}
 
 function createTodo(todo: Todo) {
     const newLI = document.createElement("li");
@@ -50,18 +63,7 @@ function createTodo(todo: Todo) {
         todo.completed = checkbox.checked;
         saveTodos();
     });
-
-    deleteBtn.addEventListener("click", function (e) {
-        const idElement = Number(this.parentElement!.id);
-        const todosFiltred = todos.filter(function (todo, index) {
-            if (index !== idElement) {
-                return todo;
-            }
-        });
-        todos = todosFiltred;
-        saveTodos();
-        
-    });
+    deleteBtnFc(deleteBtn);
 
     newLI.append(todo.text);
     newLI.append(checkbox);

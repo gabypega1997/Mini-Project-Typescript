@@ -24,8 +24,21 @@ function handleSubmit(e) {
     todos.push(newTodo);
     saveTodos();
     input.value = "";
+    location.reload();
 }
-function deleteTodo(todo) { }
+function deleteBtnFc(deleteBtn) {
+    deleteBtn.addEventListener("click", function (e) {
+        const idElement = Number(this.parentElement.id);
+        const todosFiltred = todos.filter(function (todo, index) {
+            if (index !== idElement) {
+                return todo;
+            }
+        });
+        todos = todosFiltred;
+        saveTodos();
+        location.reload();
+    });
+}
 function createTodo(todo) {
     const newLI = document.createElement("li");
     newLI.id = String(todos.indexOf(todo));
@@ -40,16 +53,7 @@ function createTodo(todo) {
         todo.completed = checkbox.checked;
         saveTodos();
     });
-    deleteBtn.addEventListener("click", function (e) {
-        const idElement = Number(this.parentElement.id);
-        const todosFiltred = todos.filter(function (todo, index) {
-            if (index !== idElement) {
-                return todo;
-            }
-        });
-        todos = todosFiltred;
-        saveTodos();
-    });
+    deleteBtnFc(deleteBtn);
     newLI.append(todo.text);
     newLI.append(checkbox);
     newLI.append(deleteBtn);
