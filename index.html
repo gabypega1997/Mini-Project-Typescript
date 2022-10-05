@@ -26,13 +26,48 @@
                 -webkit-background-clip: text;
                 color: transparent;
             }
+            ul {
+                display: flex;
+                flex-direction: column;
+                margin-inline: 5px;
+            }
             ul > li {
+                width: 50wh;
                 font-size: large;
                 padding: 3px;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                background-color: rgba(255, 255, 255, 0.562);
+                margin: 5px;
+                border-radius: 50px;
             }
-            li > input {
+            li:first {
+                width: 50%;
                 margin: 6px;
                 font-size: 1.2rem;
+            }
+
+            button {
+                padding: 1px;
+                border: none;
+                background-color: rgba(255, 255, 255, 0.562);
+                font-weight: 600;
+            }
+            button:nth-child(2) {
+                color: red;
+            }
+            button:nth-child(3) {
+                color: rgb(0, 45, 128);
+            }
+            #todoinput {
+                border: 0.5px solid green;
+                border-radius: 6px;
+                font-size: 1rem;
+                padding: 5px;
+            }
+            #btn {
+                color: green;
             }
         </style>
     </head>
@@ -46,7 +81,7 @@
                 placeholder="enter a todo"
                 id="todoinput"
             />
-            <button id="btn" type="submit">Click Me!</button>
+            <button id="btn" type="submit">Add Task</button>
         </form>
         <script src="dist/index.js"></script>
     </body>
