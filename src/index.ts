@@ -7,6 +7,7 @@ const btn = document.getElementById("btn")! as HTMLButtonElement;
 const input = document.getElementById("todoinput")! as HTMLInputElement;
 const form = document.querySelector("form")!;
 const list = document.getElementById("todolist")!;
+const progres = document.getElementById("progress")! as HTMLProgressElement;
 
 let todos: Todo[] = readTodos();
 todos.forEach(createTodo);
@@ -31,9 +32,10 @@ function handleSubmit(e: SubmitEvent) {
     todos.push(newTodo);
     saveTodos();
     input.value = "";
+    location.reload();
 }
 
-function deleteBtnFc(deleteBtn: HTMLButtonElement): void {
+function deleteBtnFc(deleteBtn: HTMLButtonElement) {
     deleteBtn.addEventListener("click", function (e) {
         const idElement = Number(this.parentElement!.id);
         const todosFiltred = todos.filter(function (todo, index) {
@@ -43,8 +45,30 @@ function deleteBtnFc(deleteBtn: HTMLButtonElement): void {
         });
         todos = todosFiltred;
         saveTodos();
-        // location.reload();
+        location.reload();
     });
+}
+
+function setProgres(): number {
+    let rez: number = 0;
+    const parting: number = todos.length > 1 ? 100 / todos.length : 100;
+    for (let i = 0; i < todos.length; i++) {
+        if (todos[i].completed === true) {
+            rez += parting;
+        }
+    }
+
+    return rez;
+}
+
+function handleProgress() {
+    progres.hidden = false;
+    progres.value = setProgres();
+    if (progres.value === 100) {
+        progres.style.color = "green";
+    } else {
+        progres.style.color = "blue";
+    }
 }
 
 function createTodo(todo: Todo) {
@@ -59,13 +83,14 @@ function createTodo(todo: Todo) {
     checkbox.addEventListener("change", function () {
         todo.completed = checkbox.checked;
         saveTodos();
+        handleProgress();
     });
     deleteBtnFc(deleteBtn);
 
     newLI.append(todo.text);
     newLI.append(checkbox);
     newLI.append(deleteBtn);
-
+    handleProgress();
     list.append(newLI);
 }
 form.addEventListener("submit", handleSubmit);

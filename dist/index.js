@@ -3,15 +3,13 @@ const btn = document.getElementById("btn");
 const input = document.getElementById("todoinput");
 const form = document.querySelector("form");
 const list = document.getElementById("todolist");
-const tasks_progres = document.getElementById("tasks");
-
-
-
+const progres = document.getElementById("progress");
 let todos = readTodos();
 todos.forEach(createTodo);
 function readTodos() {
     const todoJSON = localStorage.getItem("todos");
-    if (todoJSON === null) return [];
+    if (todoJSON === null)
+        return [];
     return JSON.parse(todoJSON);
 }
 function saveTodos() {
@@ -27,6 +25,7 @@ function handleSubmit(e) {
     todos.push(newTodo);
     saveTodos();
     input.value = "";
+    location.reload();
 }
 function deleteBtnFc(deleteBtn) {
     deleteBtn.addEventListener("click", function (e) {
@@ -38,8 +37,28 @@ function deleteBtnFc(deleteBtn) {
         });
         todos = todosFiltred;
         saveTodos();
-        // location.reload();
+        location.reload();
     });
+}
+function setProgres() {
+    let rez = 0;
+    const parting = todos.length > 1 ? 100 / todos.length : 100;
+    for (let i = 0; i < todos.length; i++) {
+        if (todos[i].completed === true) {
+            rez += parting;
+        }
+    }
+    return rez;
+}
+function handleProgress() {
+    progres.hidden = false;
+    progres.value = setProgres();
+    if (progres.value === 100) {
+        progres.style.color = "green";
+    }
+    else {
+        progres.style.color = "blue";
+    }
 }
 function createTodo(todo) {
     const newLI = document.createElement("li");
@@ -52,11 +71,13 @@ function createTodo(todo) {
     checkbox.addEventListener("change", function () {
         todo.completed = checkbox.checked;
         saveTodos();
+        handleProgress();
     });
     deleteBtnFc(deleteBtn);
     newLI.append(todo.text);
     newLI.append(checkbox);
     newLI.append(deleteBtn);
+    handleProgress();
     list.append(newLI);
 }
 form.addEventListener("submit", handleSubmit);
