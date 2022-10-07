@@ -3,12 +3,15 @@ const btn = document.getElementById("btn");
 const input = document.getElementById("todoinput");
 const form = document.querySelector("form");
 const list = document.getElementById("todolist");
+const tasks_progres = document.getElementById("tasks");
+
+
+
 let todos = readTodos();
 todos.forEach(createTodo);
 function readTodos() {
     const todoJSON = localStorage.getItem("todos");
-    if (todoJSON === null)
-        return [];
+    if (todoJSON === null) return [];
     return JSON.parse(todoJSON);
 }
 function saveTodos() {
