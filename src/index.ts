@@ -31,7 +31,6 @@ function handleSubmit(e: SubmitEvent) {
     todos.push(newTodo);
     saveTodos();
     input.value = "";
-    location.reload();
 }
 
 function deleteBtnFc(deleteBtn: HTMLButtonElement): void {
@@ -44,7 +43,7 @@ function deleteBtnFc(deleteBtn: HTMLButtonElement): void {
         });
         todos = todosFiltred;
         saveTodos();
-        location.reload();
+        // location.reload();
     });
 }
 
@@ -53,8 +52,6 @@ function createTodo(todo: Todo) {
     newLI.id = String(todos.indexOf(todo));
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
-    const add = document.createElement("button");
-    add.textContent = "Add subtasks";
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = todo.completed;
@@ -68,7 +65,6 @@ function createTodo(todo: Todo) {
     newLI.append(todo.text);
     newLI.append(checkbox);
     newLI.append(deleteBtn);
-    newLI.append(add);
 
     list.append(newLI);
 }

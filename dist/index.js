@@ -24,7 +24,6 @@ function handleSubmit(e) {
     todos.push(newTodo);
     saveTodos();
     input.value = "";
-    location.reload();
 }
 function deleteBtnFc(deleteBtn) {
     deleteBtn.addEventListener("click", function (e) {
@@ -36,7 +35,7 @@ function deleteBtnFc(deleteBtn) {
         });
         todos = todosFiltred;
         saveTodos();
-        location.reload();
+        // location.reload();
     });
 }
 function createTodo(todo) {
@@ -44,8 +43,6 @@ function createTodo(todo) {
     newLI.id = String(todos.indexOf(todo));
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
-    const add = document.createElement("button");
-    add.textContent = "Add subtasks";
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = todo.completed;
@@ -57,7 +54,6 @@ function createTodo(todo) {
     newLI.append(todo.text);
     newLI.append(checkbox);
     newLI.append(deleteBtn);
-    newLI.append(add);
     list.append(newLI);
 }
 form.addEventListener("submit", handleSubmit);
