@@ -60,6 +60,14 @@ function handleProgress() {
         progres.style.color = "blue";
     }
 }
+function handleTextLine(todo) {
+    if (todo.completed) {
+        document.getElementById(`${todos.indexOf(todo)}`).style.textDecoration = "line-through";
+    }
+    else {
+        document.getElementById(`${todos.indexOf(todo)}`).style.textDecoration = "none";
+    }
+}
 function createTodo(todo) {
     const newLI = document.createElement("li");
     newLI.id = String(todos.indexOf(todo));
@@ -70,6 +78,7 @@ function createTodo(todo) {
     checkbox.checked = todo.completed;
     checkbox.addEventListener("change", function () {
         todo.completed = checkbox.checked;
+        handleTextLine(todo);
         saveTodos();
         handleProgress();
     });
@@ -79,5 +88,6 @@ function createTodo(todo) {
     newLI.append(deleteBtn);
     handleProgress();
     list.append(newLI);
+    handleTextLine(todo);
 }
 form.addEventListener("submit", handleSubmit);

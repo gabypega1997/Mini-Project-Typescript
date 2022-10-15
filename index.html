@@ -52,9 +52,8 @@
             }
             button:nth-child(2) {
                 color: rgb(233, 12, 12);
-            }
-            button:nth-child(3) {
-                color: rgb(0, 45, 128);
+                display: inline-block !important;
+                text-decoration: none !important;
             }
             #todoinput {
                 border: 0.5px solid rgb(0, 0, 0);
@@ -76,14 +75,13 @@
             }
             #progress {
                 margin-bottom: 7px;
+                accent-color: green;
             }
-            button:hover{
+            button:hover {
                 transform: scale(1.05);
             }
-            input:hover{
-                /* accent-color: red; */
-                scale: 1.01;
-                box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.219);
+            input[type="checkbox"] {
+                accent-color: rgb(1, 110, 56);
             }
         </style>
     </head>
