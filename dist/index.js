@@ -62,15 +62,17 @@ function handleProgress() {
 }
 function handleTextLine(todo) {
     if (todo.completed) {
-        document.getElementById(`${todos.indexOf(todo)}`).style.textDecoration = "line-through";
+        document.getElementById(`${todos.indexOf(todo)}`).children[0].innerHTML = `<del>${todo.text}</del>`;
     }
     else {
-        document.getElementById(`${todos.indexOf(todo)}`).style.textDecoration = "none";
+        document.getElementById(`${todos.indexOf(todo)}`).children[0].innerHTML = `${todo.text}`;
     }
 }
 function createTodo(todo) {
     const newLI = document.createElement("li");
     newLI.id = String(todos.indexOf(todo));
+    const p = document.createElement("span");
+    p.textContent = todo.text;
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     const checkbox = document.createElement("input");
@@ -83,7 +85,7 @@ function createTodo(todo) {
         handleProgress();
     });
     deleteBtnFc(deleteBtn);
-    newLI.append(todo.text);
+    newLI.append(p);
     newLI.append(checkbox);
     newLI.append(deleteBtn);
     handleProgress();
